@@ -34,7 +34,7 @@ class Transaction(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=datetime.utcnow,
-        server_default=text("now()"),
+        server_default=text("CURRENT_TIMESTAMP"),
     )
 
     entries: Mapped[list["LedgerEntry"]] = relationship(back_populates="transaction", order_by="LedgerEntry.id")

@@ -4,9 +4,12 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from fastapi import Depends
+
 from app.api.routes import api_router
 from app.config import settings
-from app.database import engine, Base
+from app.database import engine, Base, get_db
+from app.seed import run_seed
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +43,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.include_router(api_router, prefix="/api/v1")
+
+
+@app.post("/seed", summary="Seed database")
+async def seed_db(db=Depends(get_db)):
+    """Seed asset types, accounts, and initial balances. Idempotent."""
+    msg = await run_seed(db)
+    return {"status": "ok", "message": msg}
 
 
 @app.get("/health")

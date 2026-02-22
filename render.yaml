@@ -1,12 +1,6 @@
-# Render Blueprint: Internal Wallet Service
-# Deploy from repo root; connects to Render Postgres.
-# See https://render.com/docs/blueprint-spec
-
-databases:
-  - name: wallet-db
-    databaseName: wallet
-    plan: free
-    region: oregon
+# Render: Single-service deploy (uses SQLite, no Postgres needed)
+# Connect repo → New Blueprint → select this file.
+# For Postgres: add a database in Render Dashboard and set DATABASE_URL env var.
 
 services:
   - type: web
@@ -15,8 +9,3 @@ services:
     region: oregon
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: wallet-db
-          property: connectionString
