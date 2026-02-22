@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.api.routes import api_router
+from app.config import settings
 from app.database import engine, Base
 
 logger = logging.getLogger(__name__)
