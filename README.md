@@ -114,18 +114,10 @@ curl -X POST "http://localhost:8000/api/v1/wallets/users/user_alice/spend" \
 4. **Idempotency**  
    Write endpoints accept an optional `idempotency_key`. If the same key is sent again, we return the **existing** transaction result (same `transaction_id`, current balance) without creating a new transaction. This prevents double credits or double debits on retries.
 
-## Documentation
-
-- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — Technical design, concurrency strategy, and low-level decisions
-- **[docs/INTERVIEW_QA.md](docs/INTERVIEW_QA.md)** — Interview Q&A for this project and related technologies
-
 ## Project Layout
 
 ```
 assignment/
-├── docs/
-│   ├── ARCHITECTURE.md    # Technical design & concurrency
-│   └── INTERVIEW_QA.md    # Interview Q&A
 ├── app/
 │   ├── main.py          # FastAPI app, table creation on startup
 │   ├── config.py        # Settings (e.g. DATABASE_URL)
