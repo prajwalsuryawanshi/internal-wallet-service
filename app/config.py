@@ -4,9 +4,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 def _normalize_database_url(url: str) -> str:
-    """Render and others give postgres://; asyncpg needs postgresql+asyncpg://."""
+    """Render gives postgres:// or postgresql://; asyncpg needs postgresql+asyncpg://."""
     if url.startswith("postgres://"):
         return "postgresql+asyncpg://" + url[len("postgres://") :]
+    if url.startswith("postgresql://") and "+asyncpg" not in url:
+        return "postgresql+asyncpg://" + url[len("postgresql://") :]
     return url
 
 

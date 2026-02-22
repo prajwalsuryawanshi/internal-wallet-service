@@ -6,11 +6,13 @@ databases:
   - name: wallet-db
     databaseName: wallet
     plan: free
+    region: oregon
 
 services:
   - type: web
     runtime: docker
     name: internal-wallet-service
+    region: oregon
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
     envVars:
