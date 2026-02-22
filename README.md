@@ -31,6 +31,13 @@ docker compose up -d
 - **Docs**: http://localhost:8000/docs
 - **Seed**: runs automatically after the app is healthy (asset types, Treasury, `user_alice`, `user_bob` with balances)
 
+### Option 3: Deploy on Render
+
+1. Fork or push this repo to GitHub and connect it to [Render](https://render.com).
+2. Use the **Blueprint** (Infrastructure as Code): in the Render dashboard, choose "New" → "Blueprint", connect the repo; Render will read `render.yaml` and create a Web Service + PostgreSQL.
+3. Or create manually: **New → Web Service**, connect repo, set **Environment** to **Docker**. Add a **PostgreSQL** database and set `DATABASE_URL` to the DB’s internal connection string (Render uses `postgres://`; the app converts it to `postgresql+asyncpg://`).
+4. After deploy, run the seed once (e.g. from your machine with `DATABASE_URL` set to the Render DB URL): `uv run python -m scripts.seed`.
+
 ### Option 2: Local run
 
 1. **Create and start PostgreSQL** (e.g. local install or Docker: `docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=wallet postgres:16-alpine`).
