@@ -4,7 +4,14 @@ WORKDIR /app
 
 # Install dependencies (no editable install needed; app code is copied below)
 COPY pyproject.toml ./
-RUN pip install uv && uv pip install --system fastapi "uvicorn[standard]" "sqlalchemy[asyncio]" asyncpg pydantic pydantic-settings
+RUN pip install uv && uv pip install --system \
+    fastapi \
+    "uvicorn[standard]" \
+    "sqlalchemy[asyncio]" \
+    asyncpg \
+    aiosqlite \
+    pydantic \
+    pydantic-settings
 
 COPY app ./app
 COPY scripts ./scripts
